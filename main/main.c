@@ -2,21 +2,7 @@
 #include <esp_mac.h>
 #include <esp_idf_version.h>
 #include <esp_chip_info.h>
-
-void print_char(char *string) {
-  for(char *i = string; *i != '\0'; i++) {
-    printf("%c", *i);
-  }
-  printf("\n");
-}
-
-void print_uint8_t(uint8_t *string, int length) {
-  for (int i = 0; i < length; i++)
-  {
-    printf("%x ", string[i]);
-  }
-  printf("\n");
-}
+#include "print.h"
 
 void get_security_configurations()
 {
@@ -30,15 +16,15 @@ void get_security_configurations()
   esp_efuse_mac_get_default(efuse_mac_addr_default);  // factory-programmed address
   esp_efuse_mac_get_custom(efuse_mac_addr_custom);  // previously to BLK3 written base address
 
-  print_uint8_t(base_mac_address, 6);
-  print_uint8_t(efuse_mac_addr_default, 6);
-  print_uint8_t(efuse_mac_addr_custom, 6);
+  print_uint8_t(base_mac_address, 6, ':');
+  print_uint8_t(efuse_mac_addr_default, 6, ':');
+  print_uint8_t(efuse_mac_addr_custom, 6, ':');
 
   ////////////////////////// ESP IDF Version
 
   const char *idf_version = esp_get_idf_version();
 
-  print_char(idf_version);
+  print_char(idf_version, '\0');
 
   ////////////////////////// Chip Info
 
