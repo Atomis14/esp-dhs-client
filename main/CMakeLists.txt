@@ -1,2 +1,8 @@
 idf_component_register(SRCS "main.c"
-                    INCLUDE_DIRS ".")
+                    INCLUDE_DIRS "."
+                    REQUIRES bootloader_support spi_flash print)
+
+#[[
+  bootloader_support is needed for esp_flash_encrypt.h
+  spi_flash is needed as a requirement for bootloader_support
+]]
