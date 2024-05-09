@@ -9,9 +9,10 @@ void print_char(char *string, char separator) {
 }
 
 void print_uint8_t(uint8_t *string, int length, char separator) {
-  for (int i = 0; i < length; i++)
+  printf("%x", string[0]);
+  for (int i = 1; i < length; i++)
   {
-    printf("%x%c", string[i], separator);
+    printf("%c%x", separator, string[i]);
   }
   printf("\n");
 }
