@@ -11,6 +11,8 @@ void get_security_configurations()
 {
   ////////////////////////// MAC Address
 
+  printf("\n----------------------- MAC Addresses\n");
+
   uint8_t base_mac_address[6];
   uint8_t efuse_mac_addr_default[6];
   uint8_t efuse_mac_addr_custom[6];
@@ -30,12 +32,16 @@ void get_security_configurations()
 
   ////////////////////////// ESP IDF Version
 
+  printf("\n----------------------- ESP IDF Version\n");
+
   const char *idf_version = esp_get_idf_version();
 
   printf("ESP IDF Version:\t\t");
   print_char(idf_version, '\0');
 
   ////////////////////////// Chip Info
+
+  printf("\n----------------------- Chip Info\n");
 
   esp_chip_info_t chip_info;
   esp_chip_info(&chip_info);
@@ -47,6 +53,8 @@ void get_security_configurations()
 
   ////////////////////////// Flash Encryption
 
+  printf("\n----------------------- Flash Encryption\n");
+
   bool flash_encryption_enabled = esp_flash_encryption_enabled();
   printf("Flash Encryption Enabled:\t%d\n", flash_encryption_enabled);
 
@@ -55,10 +63,41 @@ void get_security_configurations()
 
   ////////////////////////// Secure Boot
 
+  printf("\n----------------------- Secure Boot\n");
+
+  // https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/security/secure-boot-v2.html#secure-boot-v2
   bool secure_boot_enabled = esp_efuse_read_field_bit(ESP_EFUSE_SECURE_BOOT_EN);
-  printf("Secure Boot Enabled:\t\t%d", secure_boot_enabled);
+  printf("Secure Boot Enabled:\t\t%d\n", secure_boot_enabled);
+
+  // https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/security/secure-boot-v2.html#key-revocation
+  // 0: (conservative) key is only revoked after migration to a new key
+  // 1: (aggressive) the key is revoked as soon as verification with this key fails
+  bool secure_boot_aggressive_revoke_enabled = esp_efuse_read_field_bit(ESP_EFUSE_SECURE_BOOT_AGGRESSIVE_REVOKE);
+  printf("Aggressive Key Revoke Enabled:\t%d\n", secure_boot_aggressive_revoke_enabled);
+
+  // https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/security/security.html#uart-download-mode
+  // 0: can flash new firmware to the device
+  // 1: cannot flash a new firmware to the device
+  bool download_mode_disabled = esp_efuse_read_field_bit(ESP_EFUSE_DIS_DOWNLOAD_MODE);
+  printf("Download Mode Disabled:\t\t%d\n", download_mode_disabled);
+
+  // https://docs.espressif.com/projects/esp-idf/en/v5.2.2/esp32s3/security/security.html#uart-download-mode
+  // 1: prevents any arbitrary code from being executed through UART download and limits available commands to update SPI config
+  bool security_download_enabled = esp_efuse_read_field_bit(ESP_EFUSE_ENABLE_SECURITY_DOWNLOAD);
+  printf("Security Download Enabled:\t%d\n", security_download_enabled);
+
+  // https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/api-reference/system/ota.html#anti-rollback
+  // OTA Anti Rollback: in the bootloader, the security version of the selected image must be >= than this value
+  // --> rollback to applications with lower security version is prevented
+  uint8_t buf[2] = { 0 };
+  esp_efuse_read_field_blob(ESP_EFUSE_SECURE_VERSION, &buf, esp_efuse_get_field_size(ESP_EFUSE_SECURE_VERSION));
+  printf("Secure Version Number:\t\t");
+  print_uint8_t(buf, 2, '\0');
+  printf("\n");
 
   ////////////////////////// Signed App Images
+
+
 
   ////////////////////////// GPIO Pins
 
@@ -67,11 +106,6 @@ void get_security_configurations()
   //////////////////////////
   // other things to read out for the certificate
   // partition table, content of the efuses, hash of application
-}
-
-void analyze_secure_boot()
-{
-
 }
 
 void app_main(void)
