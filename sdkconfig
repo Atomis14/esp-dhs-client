@@ -509,7 +509,15 @@ CONFIG_PARTITION_TABLE_MD5=y
 # end of Partition Table
 
 #
-# Custom WiFi Configuration
+# BA MQTT Configuration
+#
+CONFIG_BROKER_URI="mqtts://user1:123456@Air-von-Michel.lan:8883"
+CONFIG_BROKER_CERTIFICATE_OVERRIDE=""
+CONFIG_BROKER_BIN_SIZE_TO_SEND=20000
+# end of BA MQTT Configuration
+
+#
+# BA WiFi Configuration
 #
 CONFIG_ESP_WIFI_SSID="OpenWrt2Ghz"
 CONFIG_ESP_WIFI_PASSWORD="123456789"
@@ -526,7 +534,7 @@ CONFIG_ESP_WIFI_AUTH_WPA2_PSK=y
 # CONFIG_ESP_WIFI_AUTH_WPA3_PSK is not set
 # CONFIG_ESP_WIFI_AUTH_WPA2_WPA3_PSK is not set
 # CONFIG_ESP_WIFI_AUTH_WAPI_PSK is not set
-# end of Custom WiFi Configuration
+# end of BA WiFi Configuration
 
 #
 # Compiler options
