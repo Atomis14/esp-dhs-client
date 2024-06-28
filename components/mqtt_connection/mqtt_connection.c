@@ -24,7 +24,7 @@
 #include "esp_ota_ops.h"
 #include <sys/param.h>
 
-#include "mqttcomponent.h"
+#include "mqtt_connection.h"
 
 static const char *TAG = "mqtts_example";
 

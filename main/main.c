@@ -8,7 +8,7 @@
 #include "configuration.h"
 #include "serial.h"
 #include "wifi.h"
-#include "mqttcomponent.h"
+#include "mqtt_connection.h"
 
 void app_main(void)
 {
