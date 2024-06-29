@@ -23,6 +23,7 @@
 #include "esp_ota_ops.h"
 #include <sys/param.h>
 
+#include "configuration.h"
 #include "mqtt_connection.h"
 
 static const char *TAG = "mqtts_example";
@@ -73,7 +74,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
         ESP_LOGI(TAG, "MQTT_EVENT_DATA");
         // useful event properties: event->topic_len, event->topic, event->data_len, event->data
         if(strcmp(event->topic, "config-request")) {
-            char* data = "THIS IS THE DATA";
+            char *data = get_configuration();
             msg_id = esp_mqtt_client_publish(client, "/config-response", data, 0, 0, 0);
         }
         break;

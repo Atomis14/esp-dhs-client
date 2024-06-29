@@ -16,7 +16,7 @@ void format_mac_address(uint8_t *address, char* buffer) {
     address[3], address[4], address[5]);
 }
 
-void get_configuration()
+char* get_configuration()
 {
   cJSON *configuration = cJSON_CreateObject();
 
@@ -110,6 +110,6 @@ void get_configuration()
   // partition table, content of the efuses, hash of application
 
 
-  char *json_res = cJSON_Print(configuration);
-  printf("\nJSON:\n%s\n", json_res);
+  return cJSON_Print(configuration);
+  //printf("\nJSON:\n%s\n", json_res);
 }

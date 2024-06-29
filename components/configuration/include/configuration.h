@@ -1,1 +1,1 @@
-void get_configuration(void);
+char* get_configuration();
