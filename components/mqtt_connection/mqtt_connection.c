@@ -30,11 +30,11 @@ static const char *TAG = "mqtts_example";
 
 
 #if CONFIG_BROKER_CERTIFICATE_OVERRIDDEN == 1
-static const uint8_t mqtt_eclipseprojects_io_pem_start[]  = "-----BEGIN CERTIFICATE-----\n" CONFIG_BROKER_CERTIFICATE_OVERRIDE "\n-----END CERTIFICATE-----";
+static const uint8_t mqtt_ca_crt_start[]  = "-----BEGIN CERTIFICATE-----\n" CONFIG_BROKER_CERTIFICATE_OVERRIDE "\n-----END CERTIFICATE-----";
 #else
-extern const uint8_t mqtt_eclipseprojects_io_pem_start[]   asm("_binary_ca_crt_start");
+extern const uint8_t mqtt_ca_crt_start[]   asm("_binary_ca_crt_start");
 #endif
-extern const uint8_t mqtt_eclipseprojects_io_pem_end[]   asm("_binary_ca_crt_end");
+extern const uint8_t mqtt_ca_crt_end[]   asm("_binary_ca_crt_end");
 
 /*
  * @brief Event handler registered to receive MQTT events
@@ -102,7 +102,7 @@ void mqtt_app_start(void)
     const esp_mqtt_client_config_t mqtt_cfg = {
         .broker = {
             .address.uri = CONFIG_BROKER_URI,
-            .verification.certificate = (const char *)mqtt_eclipseprojects_io_pem_start
+            .verification.certificate = (const char *)mqtt_ca_crt_start
         },
     };
 
