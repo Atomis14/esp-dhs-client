@@ -11,6 +11,7 @@
 #include "print.h"
 #include "configuration.h"
 
+
 void format_mac_address(uint8_t *address, char* buffer) {
   snprintf(buffer, 18, "%X:%X:%X:%X:%X:%X",
     address[0], address[1], address[2],
@@ -84,6 +85,20 @@ char* get_configuration()
   bool download_mode_disabled = esp_efuse_read_field_bit(ESP_EFUSE_DIS_DOWNLOAD_MODE);
   cJSON_AddBoolToObject(configuration, "download_mode_disabled", download_mode_disabled);
 
+  ////////////////////////// Signed App Images
+
+  ////////////////////////// Memory Protection
+
+  // https://docs.espressif.com/projects/esp-idf/en/v5.2.2/esp32s3/api-reference/kconfig.html#config-esp-system-memprot-feature
+  // if enabled, memory access is monitored for permission violations
+  bool memory_protection_enabled = CONFIG_ESP_SYSTEM_MEMPROT_FEATURE;
+  cJSON_AddBoolToObject(configuration, "memory_protection_enabled", memory_protection_enabled);
+
+  // https://docs.espressif.com/projects/esp-idf/en/v5.2.2/esp32s3/api-reference/kconfig.html#config-esp-system-memprot-feature-lock
+  // if enabled, memory protection cannot be reset until next boot
+  bool memory_protection_locked = CONFIG_ESP_SYSTEM_MEMPROT_FEATURE_LOCK;
+  cJSON_AddBoolToObject(configuration, "memory_protection_locked", memory_protection_locked);
+
   ////////////////////////// Miscellaneous
 
   // https://docs.espressif.com/projects/esp-idf/en/v5.2.2/esp32s3/security/security.html#uart-download-mode
@@ -97,9 +112,6 @@ char* get_configuration()
   uint16_t secure_version;
   esp_efuse_read_field_blob(ESP_EFUSE_SECURE_VERSION, &secure_version, esp_efuse_get_field_size(ESP_EFUSE_SECURE_VERSION));
   cJSON_AddNumberToObject(configuration, "anti_rollback_secure_version", secure_version);
-
-  ////////////////////////// Signed App Images
-
 
 
   ////////////////////////// GPIO Pins
