@@ -11,6 +11,21 @@
 #include "print.h"
 #include "configuration.h"
 
+/////// menuconfig options
+
+#ifdef CONFIG_ESP_SYSTEM_MEMPROT_FEATURE
+  #define MEMORY_PROTECTION_ENABLED 1
+#else
+  #define MEMORY_PROTECTION_ENABLED 0
+#endif
+
+#ifdef CONFIG_ESP_SYSTEM_MEMPROT_FEATURE_LOCK
+  #define MEMORY_PROTECTION_LOCKED 1
+#else
+  #define MEMORY_PROTECTION_LOCKED 0
+#endif
+
+/////// end menuconfig options
 
 void format_mac_address(uint8_t *address, char* buffer) {
   snprintf(buffer, 18, "%X:%X:%X:%X:%X:%X",
@@ -88,15 +103,16 @@ char* get_configuration()
   ////////////////////////// Signed App Images
 
   ////////////////////////// Memory Protection
+  // https://docs.espressif.com/projects/esp-idf/en/v5.2.2/esp32s3/security/security.html#memory-protection
 
   // https://docs.espressif.com/projects/esp-idf/en/v5.2.2/esp32s3/api-reference/kconfig.html#config-esp-system-memprot-feature
   // if enabled, memory access is monitored for permission violations
-  bool memory_protection_enabled = CONFIG_ESP_SYSTEM_MEMPROT_FEATURE;
+  bool memory_protection_enabled = MEMORY_PROTECTION_ENABLED;
   cJSON_AddBoolToObject(configuration, "memory_protection_enabled", memory_protection_enabled);
 
   // https://docs.espressif.com/projects/esp-idf/en/v5.2.2/esp32s3/api-reference/kconfig.html#config-esp-system-memprot-feature-lock
   // if enabled, memory protection cannot be reset until next boot
-  bool memory_protection_locked = CONFIG_ESP_SYSTEM_MEMPROT_FEATURE_LOCK;
+  bool memory_protection_locked = MEMORY_PROTECTION_LOCKED;
   cJSON_AddBoolToObject(configuration, "memory_protection_locked", memory_protection_locked);
 
   ////////////////////////// Miscellaneous
