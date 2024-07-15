@@ -2,6 +2,6 @@
 .vscode
 .DS_Store
 build
-sdkconfig
-sdkconfig.old
+sdkconfig*
 *.crt
+*.pem

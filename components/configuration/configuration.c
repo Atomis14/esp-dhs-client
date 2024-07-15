@@ -3,6 +3,7 @@
 #include <esp_idf_version.h>
 #include <esp_chip_info.h>
 #include <esp_flash_encrypt.h>
+#include <esp_secure_boot.h>
 #include <esp_efuse.h>
 #include <esp_efuse_table.h>
 #include <cJSON.h>
@@ -68,7 +69,7 @@ char* get_configuration()
   ////////////////////////// Secure Boot
 
   // https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/security/secure-boot-v2.html#secure-boot-v2
-  bool secure_boot_enabled = esp_efuse_read_field_bit(ESP_EFUSE_SECURE_BOOT_EN);
+  bool secure_boot_enabled = esp_secure_boot_enabled();
   cJSON_AddBoolToObject(configuration, "secure_boot_enabled", secure_boot_enabled);
 
   // https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/security/secure-boot-v2.html#key-revocation
