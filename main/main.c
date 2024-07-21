@@ -4,9 +4,7 @@
 #include "esp_netif.h"
 #include "esp_event.h"
 
-#include "print.h"
 #include "configuration.h"
-#include "serial.h"
 #include "wifi.h"
 #include "mqtt_connection.h"
 

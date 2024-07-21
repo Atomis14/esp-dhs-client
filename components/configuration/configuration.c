@@ -8,7 +8,6 @@
 #include <esp_efuse_table.h>
 #include <cJSON.h>
 
-#include "print.h"
 #include "configuration.h"
 
 /////// menuconfig options

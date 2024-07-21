@@ -1,6 +1,6 @@
 idf_component_register(SRCS "configuration.c"
                     INCLUDE_DIRS "include"
-                    REQUIRES efuse bootloader_support spi_flash print configuration json
+                    REQUIRES efuse bootloader_support spi_flash configuration json
                     )
 
 #[[
