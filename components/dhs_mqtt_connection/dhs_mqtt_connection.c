@@ -23,8 +23,8 @@
 #include "esp_ota_ops.h"
 #include <sys/param.h>
 
-#include "configuration.h"
-#include "mqtt_connection.h"
+#include "dhs_configuration.h"
+#include "dhs_mqtt_connection.h"
 
 static const char *TAG = "mqtts_example";
 

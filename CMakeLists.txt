@@ -7,4 +7,4 @@ cmake_minimum_required(VERSION 3.16)
 include($ENV{IDF_PATH}/tools/cmake/project.cmake)
 project(BA-project)
 
-target_add_binary_data(BA-project.elf "components/mqtt_connection/ca.crt" TEXT)
+target_add_binary_data(BA-project.elf "components/dhs_mqtt_connection/ca.crt" TEXT)

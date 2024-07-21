@@ -2,5 +2,5 @@ idf_component_register(SRCS "main.c"
                     INCLUDE_DIRS "."
                     REQUIRES
                       nvs_flash
-                      configuration wifi mqtt_connection
+                      dhs_configuration dhs_wifi dhs_mqtt_connection
                     )

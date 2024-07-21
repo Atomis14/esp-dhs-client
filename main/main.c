@@ -4,9 +4,9 @@
 #include "esp_netif.h"
 #include "esp_event.h"
 
-#include "configuration.h"
-#include "wifi.h"
-#include "mqtt_connection.h"
+#include "dhs_configuration.h"
+#include "dhs_wifi.h"
+#include "dhs_mqtt_connection.h"
 
 void app_main(void)
 {

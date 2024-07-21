@@ -8,7 +8,7 @@
 #include <esp_efuse_table.h>
 #include <cJSON.h>
 
-#include "configuration.h"
+#include "dhs_configuration.h"
 
 /////// menuconfig options
 
