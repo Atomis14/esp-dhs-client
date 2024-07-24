@@ -26,7 +26,7 @@
 #include "dhs_configuration.h"
 #include "dhs_mqtt_connection.h"
 
-static const char *TAG = "mqtts_example";
+static const char *TAG = "dhs_mqtts";
 
 
 #if CONFIG_BROKER_CERTIFICATE_OVERRIDDEN == 1
