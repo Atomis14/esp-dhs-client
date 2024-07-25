@@ -67,7 +67,7 @@ static unsigned char hash[32] = {
     0xb0, 0x03, 0x61, 0xa3, 0x96, 0x17, 0x7a, 0x9c, 0xb4, 0x10, 0xff, 0x61, 0xf2, 0x00, 0x15, 0xad
 };
 
-static const uint8_t public_key_x509_header[] = {
+/* static const uint8_t public_key_x509_header[] = {
     0x30, 0x59, 0x30, 0x13, 0x06, 0x07, 0x2A, 0x86, 0x48, 0xCE, 0x3D, 0x02, 0x01, 0x06, 0x08, 0x2A,
     0x86, 0x48, 0xCE, 0x3D, 0x03, 0x01, 0x07, 0x03, 0x42, 0x00, 0x04
 };
@@ -78,24 +78,24 @@ static void print_public_key(uint8_t *pubkey)
     uint8_t * tmp;
     size_t buf_len = sizeof(buf);
 
-    /* Calculate where the raw data will fit into the buffer */
+    // Calculate where the raw data will fit into the buffer
     tmp = buf + sizeof(buf) - ATCA_PUB_KEY_SIZE - sizeof(public_key_x509_header);
 
-    /* Copy the header */
+    // Copy the header
     memcpy(tmp, public_key_x509_header, sizeof(public_key_x509_header));
 
-    /* Copy the key bytes */
+    // Copy the key bytes
     memcpy(tmp + sizeof(public_key_x509_header), pubkey, ATCA_PUB_KEY_SIZE);
 
-    /* Convert to base 64 */
+    // Convert to base 64
     (void)atcab_base64encode(tmp, ATCA_PUB_KEY_SIZE + sizeof(public_key_x509_header), (char*)buf, &buf_len);
 
-    /* Add a null terminator */
+    // Add a null terminator
     buf[buf_len] = '\0';
 
-    /* Print out the key */
+    // Print out the key
     ESP_LOGI(TAG, "\r\n-----BEGIN PUBLIC KEY-----\r\n%s\r\n-----END PUBLIC KEY-----", buf);
-}
+} */
 
 static int atca_ecdsa_test(void)
 {
@@ -214,7 +214,7 @@ bool get_atecc_status()
         goto exit;
     }
     ESP_LOGI(TAG, " ok");
-    print_public_key(pubkey);
+    //print_public_key(pubkey);
 
     /* Perform a Sign/Verify Test */
     ret = atca_ecdsa_test();
