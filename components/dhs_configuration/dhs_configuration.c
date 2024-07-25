@@ -7,7 +7,7 @@
 #include <esp_efuse.h>
 #include <esp_efuse_table.h>
 #include <cJSON.h>
-
+#include "dhs_atecc.h"
 #include "dhs_configuration.h"
 
 /////// menuconfig options
@@ -129,12 +129,14 @@ char* get_configuration()
   cJSON_AddNumberToObject(configuration, "anti_rollback_secure_version", secure_version);
 
 
-  ////////////////////////// GPIO Pins
+  ////////////////////////// Secure Element
 
+  bool atecc_connected = get_atecc_status();
+  cJSON_AddBoolToObject(configuration, "atecc_connected", atecc_connected);
 
 
   //////////////////////////
-  // other things to read out for the certificate
+  // other things to read out for the certificate:
   // partition table, content of the efuses, hash of application
 
 

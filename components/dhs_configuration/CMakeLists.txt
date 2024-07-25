@@ -1,6 +1,6 @@
 idf_component_register(SRCS "dhs_configuration.c"
                     INCLUDE_DIRS "include"
-                    REQUIRES efuse bootloader_support spi_flash json
+                    REQUIRES efuse bootloader_support spi_flash json dhs_atecc
                     )
 
 #[[
