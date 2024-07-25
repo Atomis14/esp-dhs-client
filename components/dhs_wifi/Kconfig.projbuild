@@ -1,4 +1,4 @@
-menu "BA WiFi Configuration"
+menu "DHS WiFi Configuration"
 
     config ESP_WIFI_SSID
         string "WiFi SSID"

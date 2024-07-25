@@ -1,1 +1,1 @@
-void init_atecc(void);
+bool get_atecc_status();

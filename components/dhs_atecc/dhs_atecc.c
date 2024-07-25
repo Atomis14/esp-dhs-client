@@ -158,7 +158,7 @@ exit:
     return ret;
 }
 
-void init_atecc(void)
+bool get_atecc_status()
 {
     int ret = 0;
     bool lock;
@@ -222,9 +222,10 @@ void init_atecc(void)
         ESP_LOGE(TAG, " ECDSA sign/verify failed");
         goto exit;
     }
+    return true;
 
 exit:
     fflush(stdout);
     close_mbedtls_rng();
-
+    return false;
 }

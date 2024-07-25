@@ -1,4 +1,4 @@
-menu "BA MQTT Configuration"
+menu "DHS MQTT Configuration"
 
     config BROKER_URI
         string "Broker URL"
