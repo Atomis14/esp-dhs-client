@@ -59,6 +59,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
         ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);  
         char *data = get_configuration();
         msg_id = esp_mqtt_client_publish(client, "/device-connected", data, 0, 2, 0);
+        free(data);
         break;
     case MQTT_EVENT_DISCONNECTED:
         ESP_LOGI(TAG, "MQTT_EVENT_DISCONNECTED");
@@ -78,6 +79,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
         if(strcmp(event->topic, "config-request")) {
             char *data = get_configuration();
             msg_id = esp_mqtt_client_publish(client, "/config-response", data, 0, 2, 0);
+            free(data);
         }
         break;
     case MQTT_EVENT_ERROR:

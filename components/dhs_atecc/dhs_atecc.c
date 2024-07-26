@@ -97,7 +97,7 @@ static void print_public_key(uint8_t *pubkey)
     ESP_LOGI(TAG, "\r\n-----BEGIN PUBLIC KEY-----\r\n%s\r\n-----END PUBLIC KEY-----", buf);
 } */
 
-static int atca_ecdsa_test(void)
+int atca_ecdsa_test()
 {
     mbedtls_pk_context pkey;
     int ret;
@@ -109,7 +109,8 @@ static int atca_ecdsa_test(void)
 #ifdef MBEDTLS_ECDSA_SIGN_ALT
     /* Convert to an mbedtls key */
     ESP_LOGI(TAG,  " Using a hardware private key ...");
-    ret = atca_mbedtls_pk_init(&pkey, 0);
+    ret = atca_mbedtls_pk_init(&pkey, 0);   // memory leak of 236b bytes
+    //ret = 1;  // for debugging
     if (ret != 0) {
         ESP_LOGI(TAG, " failed !  atca_mbedtls_pk_init returned %02x", ret);
         goto exit;
@@ -152,13 +153,15 @@ static int atca_ecdsa_test(void)
         goto exit;
     }
     ESP_LOGI(TAG, " ok");
+    mbedtls_pk_free(&pkey);
 
 exit:
+    mbedtls_pk_free(&pkey);
     fflush(stdout);
     return ret;
 }
 
-bool get_atecc_status()
+void init_atecc()
 {
     int ret = 0;
     bool lock;
@@ -216,16 +219,7 @@ bool get_atecc_status()
     ESP_LOGI(TAG, " ok");
     //print_public_key(pubkey);
 
-    /* Perform a Sign/Verify Test */
-    ret = atca_ecdsa_test();
-    if (ret != 0) {
-        ESP_LOGE(TAG, " ECDSA sign/verify failed");
-        goto exit;
-    }
-    return true;
-
 exit:
     fflush(stdout);
     close_mbedtls_rng();
-    return false;
 }

@@ -1,1 +1,2 @@
-bool get_atecc_status();
+void init_atecc();
+int atca_ecdsa_test();

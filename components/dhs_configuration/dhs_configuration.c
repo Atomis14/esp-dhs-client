@@ -131,15 +131,21 @@ char* get_configuration()
 
   ////////////////////////// Secure Element
 
-  bool atecc_connected = get_atecc_status();
-  cJSON_AddBoolToObject(configuration, "atecc_connected", atecc_connected);
+  /* bool atecc_connected = get_atecc_status();
+  cJSON_AddBoolToObject(configuration, "atecc_connected", atecc_connected); */
+
+  /* Perform a Sign/Verify Test */
+  /* int ret = atca_ecdsa_test();
+  if (ret != 0) {
+    ESP_LOGE("HE", "ECDSA sign/verify failed");
+  } */
 
 
   //////////////////////////
   // other things to read out for the certificate:
   // partition table, content of the efuses, hash of application
 
-
-  return cJSON_Print(configuration);
-  //printf("\nJSON:\n%s\n", json_res);
+  char *json_res = cJSON_Print(configuration);
+  cJSON_Delete(configuration);
+  return json_res;
 }

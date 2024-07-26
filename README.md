@@ -1,4 +1,4 @@
-# BA Project Client
+# ESP-DHS Client
 
 ## Project Setup
 
@@ -6,9 +6,9 @@ Project built using VS Code and ESP-IDF extensions v1.7.1 (did not work with new
 
 Make sure the necessary SDK configuration are set in menuconfig:  
 
-**BA MQTT Configuration**  
+**DHS MQTT Configuration**  
 Broker URL: `mqtts://<username>:<password>@<fqdn>`  
 
-**BA WiFi Configuration**  
+**DHS WiFi Configuration**  
 WiFi SSID: `<SSID>`  
 WiFi Password: `<Password>`
