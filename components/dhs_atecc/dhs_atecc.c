@@ -109,7 +109,7 @@ int static atca_ecdsa_test()
 #ifdef MBEDTLS_ECDSA_SIGN_ALT
     /* Convert to an mbedtls key */
     ESP_LOGI(TAG,  " Using a hardware private key ...");
-    ret = atca_mbedtls_pk_init(&pkey, 0);   // memory leak of 236b bytes
+    ret = atca_mbedtls_pk_init(&pkey, 0);   // memory leak of 236 bytes
     //ret = 1;  // for debugging
     if (ret != 0) {
         ESP_LOGI(TAG, " failed !  atca_mbedtls_pk_init returned %02x", ret);

@@ -1,0 +1,1 @@
+void start_user_application();

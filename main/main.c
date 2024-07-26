@@ -9,7 +9,9 @@
 #include "dhs_mqtt_connection.h"
 #include "dhs_atecc.h"
 
-#include "esp_log.h"
+#include "ua_main.h"
+
+// #include "esp_log.h"
 
 void app_main(void)
 {
@@ -22,6 +24,8 @@ void app_main(void)
   wifi_init_station();  // esp_netif_init() and esp_event_loop_create_default() are called inside here
   mqtt_app_start();
   init_atecc();
+
+  start_user_application(); 
 
   // Memory Optimization Tests
   /* int before = 0;
