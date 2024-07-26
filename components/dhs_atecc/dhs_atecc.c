@@ -97,7 +97,7 @@ static void print_public_key(uint8_t *pubkey)
     ESP_LOGI(TAG, "\r\n-----BEGIN PUBLIC KEY-----\r\n%s\r\n-----END PUBLIC KEY-----", buf);
 } */
 
-int atca_ecdsa_test()
+int static atca_ecdsa_test()
 {
     mbedtls_pk_context pkey;
     int ret;
@@ -159,6 +159,15 @@ exit:
     mbedtls_pk_free(&pkey);
     fflush(stdout);
     return ret;
+}
+
+bool get_atecc_status() {
+    int ret = atca_ecdsa_test();
+    if (ret != 0) {
+        ESP_LOGE(TAG, "ECDSA sign/verify failed");
+        return false;
+    }
+    return true;
 }
 
 void init_atecc()
