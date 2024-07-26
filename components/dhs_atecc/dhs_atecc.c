@@ -23,6 +23,9 @@
 #include "cryptoauthlib.h"
 #include "mbedtls/atca_mbedtls_wrap.h"
 
+#include "atca_basic.h"
+#include "atca_cfgs.h"
+
 /* mbedTLS includes */
 #include "mbedtls/platform.h"
 #include "mbedtls/debug.h"
@@ -161,6 +164,21 @@ exit:
     return ret;
 }
 
+void get_random_number() {
+    uint8_t random_number[32];
+    int status = atcab_random(random_number);
+    if (status != ATCA_SUCCESS) {
+        ESP_LOGE(TAG, "Failed to get random number: %d", status);
+    } else {
+        ESP_LOGI(TAG, "Random number successfully obtained");
+        printf("Random number: ");
+        for (int i = 0; i < 32; i++) {
+            printf("%02x", random_number[i]);
+        }
+        printf("\n");
+    }
+}
+
 bool get_atecc_status() {
     int ret = atca_ecdsa_test();
     if (ret != 0) {
@@ -179,16 +197,16 @@ void init_atecc()
 
     /* Initialize the mbedtls library */
     ret = configure_mbedtls_rng();
-#ifdef CONFIG_ATECC608A_TNG
+#ifdef CONFIG_ATECC608A_TNG /* CONFIG_ATECC608A_TNGO */
     ESP_LOGI(TAG, "  . Initialize the ATECC interface for Trust & GO ...");
     cfg_ateccx08a_i2c_default.atcai2c.address = 0x6A;
-#elif CONFIG_ATECC608A_TFLEX /* CONFIG_ATECC608A_TNGO */
+#elif CONFIG_ATECC608A_TFLEX /* CONFIG_ATECC608A_TFLEX */
     ESP_LOGI(TAG, "  . Initialize the ATECC interface for TrustFlex ...");
     cfg_ateccx08a_i2c_default.atcai2c.address = 0x6C;
-#elif CONFIG_ATECC608A_TCUSTOM /* CONFIG_ATECC608A_TFLEX */
+#elif CONFIG_ATECC608A_TCUSTOM /* CONFIG_ATECC608A_TCUSTOM */
     ESP_LOGI(TAG, "  . Initialize the ATECC interface for TrustCustom ...");
     /* Default slave address is same as that of TCUSTOM ATECC608A chips */
-#endif /* CONFIG_ATECC608A_TCUSTOM */
+#endif 
     ret = atcab_init(&cfg_ateccx08a_i2c_default);
     if (ret != 0) {
         ESP_LOGI(TAG, " failed ! atcab_init returned %02x", ret);
@@ -196,7 +214,7 @@ void init_atecc()
     }
     ESP_LOGI(TAG, " ok");
 
-    lock = 0;
+    /* lock = 0;
     ESP_LOGI(TAG, " Check the data zone lock status...");
     ret = atcab_is_locked(LOCK_ZONE_DATA, &lock);
     if (ret != 0) {
@@ -226,7 +244,7 @@ void init_atecc()
         goto exit;
     }
     ESP_LOGI(TAG, " ok");
-    //print_public_key(pubkey);
+    //print_public_key(pubkey); */
 
 exit:
     fflush(stdout);

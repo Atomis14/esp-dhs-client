@@ -50,10 +50,10 @@ static void change_led(int temperature)
 void blink_led(int temperature)
 {
   while (1) {
-    ESP_LOGI(TAG, "Turning the LED %s!", s_led_state == true ? "ON" : "OFF");
+    //ESP_LOGI(TAG, "Turning the LED %s!", s_led_state == true ? "ON" : "OFF");
     change_led(temperature);
     s_led_state = !s_led_state; // toggle LED state
-    int blink_period = 500;
+    int blink_period = 500; // in milliseconds
     vTaskDelay(blink_period / portTICK_PERIOD_MS);
   }
 }

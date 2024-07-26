@@ -15,15 +15,18 @@
 
 void app_main(void)
 {
+  init_atecc();
+
   char* config = get_configuration();
   printf("%s\n", config);
   free(config);
+
+  get_random_number();
 
   // initialize ESP-DHS (device hardening system)
   ESP_ERROR_CHECK(nvs_flash_init());
   wifi_init_station();  // esp_netif_init() and esp_event_loop_create_default() are called inside here
   mqtt_app_start();
-  init_atecc();
 
   start_user_application(); 
 
