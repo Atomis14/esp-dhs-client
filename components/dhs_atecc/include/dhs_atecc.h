@@ -1,3 +1,3 @@
-void init_atecc();
-bool get_atecc_status();
-void get_random_number();
+void dhs_atecc_init();
+bool dhs_atecc_get_status();
+void dhs_atecc_get_random_number();

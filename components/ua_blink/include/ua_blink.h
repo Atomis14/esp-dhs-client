@@ -1,2 +1,2 @@
-void configure_led();
-void blink_led(int temperature);
+void ua_blink_init();
+void ua_blink_led(int);

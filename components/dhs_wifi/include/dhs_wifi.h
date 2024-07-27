@@ -1,1 +1,1 @@
-void wifi_init_station(void);
+void dhs_wifi_init(void);

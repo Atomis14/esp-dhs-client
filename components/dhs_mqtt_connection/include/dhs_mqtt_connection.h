@@ -1,1 +1,1 @@
-void mqtt_app_start(void);
+void dhs_mqtt_init(void);

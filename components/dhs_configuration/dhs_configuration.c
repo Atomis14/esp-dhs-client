@@ -32,7 +32,7 @@ void format_mac_address(uint8_t *address, char* buffer) {
     address[3], address[4], address[5]);
 }
 
-char* get_configuration()
+char* dhs_config_get()
 {
   cJSON *configuration = cJSON_CreateObject();
 
@@ -131,7 +131,7 @@ char* get_configuration()
 
   ////////////////////////// Secure Element
 
-  bool atecc_connected = get_atecc_status();
+  bool atecc_connected = dhs_atecc_get_status();
   cJSON_AddBoolToObject(configuration, "atecc_connected", atecc_connected);
   
 

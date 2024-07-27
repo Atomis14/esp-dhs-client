@@ -164,7 +164,7 @@ exit:
     return ret;
 }
 
-void get_random_number() {
+void dhs_atecc_get_random_number() {
     uint8_t random_number[32];
     int status = atcab_random(random_number);
     if (status != ATCA_SUCCESS) {
@@ -179,7 +179,7 @@ void get_random_number() {
     }
 }
 
-bool get_atecc_status() {
+bool dhs_atecc_get_status() {
     int ret = atca_ecdsa_test();
     if (ret != 0) {
         ESP_LOGE(TAG, "ECDSA sign/verify failed");
@@ -188,12 +188,12 @@ bool get_atecc_status() {
     return true;
 }
 
-void init_atecc()
+void dhs_atecc_init()
 {
     int ret = 0;
-    bool lock;
+    /* bool lock;
     uint8_t buf[ATCA_ECC_CONFIG_SIZE];
-    uint8_t pubkey[ATCA_PUB_KEY_SIZE];
+    uint8_t pubkey[ATCA_PUB_KEY_SIZE]; */
 
     /* Initialize the mbedtls library */
     ret = configure_mbedtls_rng();

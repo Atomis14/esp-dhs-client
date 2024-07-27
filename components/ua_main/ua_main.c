@@ -7,12 +7,12 @@
 static const char *TAG = "ua_main";
 
 
-void start_user_application()
+void ua_main_init()
 {
   ESP_LOGI(TAG, "Started user application");
 
   int temperature = -5;
 
-  configure_led();
-  blink_led(temperature);
+  ua_blink_init();
+  ua_blink_led(temperature);
 }

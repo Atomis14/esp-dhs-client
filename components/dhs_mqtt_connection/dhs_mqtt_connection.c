@@ -57,7 +57,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
         ESP_LOGI(TAG, "MQTT_EVENT_CONNECTED");
         msg_id = esp_mqtt_client_subscribe(client, "/config-request", 0);
         ESP_LOGI(TAG, "sent subscribe successful, msg_id=%d", msg_id);  
-        char *data = get_configuration();
+        char *data = dhs_config_get();
         msg_id = esp_mqtt_client_publish(client, "/device-connected", data, 0, 2, 0);
         free(data);
         break;
@@ -77,7 +77,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
         ESP_LOGI(TAG, "MQTT_EVENT_DATA");
         // useful event properties: event->topic_len, event->topic, event->data_len, event->data
         if(strcmp(event->topic, "config-request")) {
-            char *data = get_configuration();
+            char *data = dhs_config_get();
             msg_id = esp_mqtt_client_publish(client, "/config-response", data, 0, 2, 0);
             free(data);
         }
@@ -101,7 +101,7 @@ static void mqtt_event_handler(void *handler_args, esp_event_base_t base, int32_
     }
 }
 
-void mqtt_app_start(void)
+void dhs_mqtt_init(void)
 {
     const esp_mqtt_client_config_t mqtt_cfg = {
         .broker = {

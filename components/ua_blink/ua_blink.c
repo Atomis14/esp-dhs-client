@@ -47,7 +47,7 @@ static void change_led(int temperature)
   }
 }
 
-void blink_led(int temperature)
+void ua_blink_led(int temperature)
 {
   while (1) {
     //ESP_LOGI(TAG, "Turning the LED %s!", s_led_state == true ? "ON" : "OFF");
@@ -58,7 +58,7 @@ void blink_led(int temperature)
   }
 }
 
-void configure_led()
+void ua_blink_init()
 {
   ESP_LOGI(TAG, "Example configured to blink addressable LED!");
 

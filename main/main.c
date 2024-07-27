@@ -15,27 +15,27 @@
 
 void app_main(void)
 {
-  init_atecc();
+  dhs_atecc_init();
 
-  char* config = get_configuration();
+  char* config = dhs_config_get();
   printf("%s\n", config);
   free(config);
 
-  get_random_number();
+  dhs_atecc_get_random_number();
 
   // initialize ESP-DHS (device hardening system)
   ESP_ERROR_CHECK(nvs_flash_init());
-  wifi_init_station();  // esp_netif_init() and esp_event_loop_create_default() are called inside here
-  mqtt_app_start();
+  dhs_wifi_init();  // esp_netif_init() and esp_event_loop_create_default() are called inside here
+  dhs_mqtt_init();
 
-  start_user_application(); 
+  ua_main_init(); 
 
   // Memory Optimization Tests
   /* int before = 0;
   for (int i = 0; i < 20; i++)
   {
     //atca_ecdsa_test();
-    char* json_res = get_configuration();
+    char* json_res = dhs_config_get();
     free(json_res);
     int new = esp_get_free_heap_size();
     if(before == 0) {

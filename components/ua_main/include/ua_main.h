@@ -1,1 +1,1 @@
-void start_user_application();
+void ua_main_init();

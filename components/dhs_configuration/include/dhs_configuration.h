@@ -1,1 +1,1 @@
-char* get_configuration();
+char* dhs_config_get();
