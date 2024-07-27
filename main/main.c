@@ -21,8 +21,6 @@ void app_main(void)
   printf("%s\n", config);
   free(config);
 
-  dhs_atecc_get_random_number();
-
   // initialize ESP-DHS (device hardening system)
   ESP_ERROR_CHECK(nvs_flash_init());
   dhs_wifi_init();  // esp_netif_init() and esp_event_loop_create_default() are called inside here
@@ -44,9 +42,5 @@ void app_main(void)
     printf("USED MEMORY: %d (before: %d, after: %d)\n", before - new, before, new);
     before = new;
   } */
-  
-
-  // initialize UA (user application)
-  
 }
 

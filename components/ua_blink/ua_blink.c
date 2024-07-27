@@ -10,52 +10,15 @@
 
 static const char *TAG = "ua_blink";
 
-static uint8_t s_led_state = 0;
+
 static led_strip_handle_t led_strip;
 
-static void change_led(int temperature)
+void ua_set_led_color(uint8_t red, uint8_t green, uint8_t blue)
 {
-  //                     r  g  b
-  uint8_t channels[3] = {0, 0, 0};
-  if (temperature >= 25) { // red
-    channels[0] = 255;
-    channels[1] = 0;
-    channels[2] = 0;
-  } else if (temperature >= 10) { // yellow
-    channels[0] = 94;
-    channels[1] = 91;
-    channels[2] = 16;
-  } else if (temperature > 0) { // light blue
-    channels[0] = 13;
-    channels[1] = 67;
-    channels[2] = 85;
-  } else {  // dark blue
-    channels[0] = 0;
-    channels[1] = 0;
-    channels[2] = 255;
-  }
-
-  /* If the addressable LED is enabled */
-  if (s_led_state) {
-    /* Set the LED pixel using RGB from 0 (0%) to 255 (100%) for each color */
-    led_strip_set_pixel(led_strip, 0, channels[0], channels[1], channels[2]);
-    /* Refresh the strip to send data */
-    led_strip_refresh(led_strip);
-  } else {
-    // Set all LED off to clear all pixels
-    led_strip_clear(led_strip);
-  }
-}
-
-void ua_blink_led(int temperature)
-{
-  while (1) {
-    //ESP_LOGI(TAG, "Turning the LED %s!", s_led_state == true ? "ON" : "OFF");
-    change_led(temperature);
-    s_led_state = !s_led_state; // toggle LED state
-    int blink_period = 500; // in milliseconds
-    vTaskDelay(blink_period / portTICK_PERIOD_MS);
-  }
+  // set the LED pixel using RGB from 0 (0%) to 255 (100%) for each color
+  led_strip_set_pixel(led_strip, 0, red, green, blue);
+  // refresh the strip to send data
+  led_strip_refresh(led_strip);
 }
 
 void ua_blink_init()

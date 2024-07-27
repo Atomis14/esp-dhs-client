@@ -164,19 +164,14 @@ exit:
     return ret;
 }
 
-void dhs_atecc_get_random_number() {
-    uint8_t random_number[32];
-    int status = atcab_random(random_number);
-    if (status != ATCA_SUCCESS) {
-        ESP_LOGE(TAG, "Failed to get random number: %d", status);
-    } else {
-        ESP_LOGI(TAG, "Random number successfully obtained");
-        printf("Random number: ");
-        for (int i = 0; i < 32; i++) {
-            printf("%02x", random_number[i]);
-        }
-        printf("\n");
+bool dhs_atecc_get_random_number(uint8_t buf[32]) {
+    int ret = atcab_random(buf);
+    if (ret != 0) {
+        ESP_LOGE(TAG, "Failed to get random number: %d", ret);
+        return false;
     }
+    ESP_LOGI(TAG, "Random number successfully obtained");
+    return true;
 }
 
 bool dhs_atecc_get_status() {
@@ -191,11 +186,6 @@ bool dhs_atecc_get_status() {
 void dhs_atecc_init()
 {
     int ret = 0;
-    /* bool lock;
-    uint8_t buf[ATCA_ECC_CONFIG_SIZE];
-    uint8_t pubkey[ATCA_PUB_KEY_SIZE]; */
-
-    /* Initialize the mbedtls library */
     ret = configure_mbedtls_rng();
 #ifdef CONFIG_ATECC608A_TNG /* CONFIG_ATECC608A_TNGO */
     ESP_LOGI(TAG, "  . Initialize the ATECC interface for Trust & GO ...");
@@ -213,38 +203,6 @@ void dhs_atecc_init()
         goto exit;
     }
     ESP_LOGI(TAG, " ok");
-
-    /* lock = 0;
-    ESP_LOGI(TAG, " Check the data zone lock status...");
-    ret = atcab_is_locked(LOCK_ZONE_DATA, &lock);
-    if (ret != 0) {
-        ESP_LOGI(TAG, " failed\n  ! atcab_is_locked returned %02x", ret);
-        goto exit;
-    }
-
-    if (lock) {
-        ESP_LOGI(TAG, " ok: locked");
-    } else {
-        ESP_LOGE(TAG, "unlocked, please lock(configure) the ATECC608A chip with help of esp_cryptoauth_utility and try again");
-        goto exit;
-    }
-
-    ESP_LOGI(TAG, " Get the device info (type)...");
-    ret = atcab_info(buf);
-    if (ret != 0) {
-        ESP_LOGI(TAG, " failed\n  ! atcab_info returned %02x", ret);
-        goto exit;
-    }
-    ESP_LOGI(TAG, " ok: %02x %02x", buf[2], buf[3]);
-
-    ESP_LOGI(TAG, " Get the public key...");
-    ret = atcab_get_pubkey(0, pubkey);
-    if (ret != 0) {
-        ESP_LOGI(TAG, " failed\n  ! atcab_get_pubkey returned %02x", ret);
-        goto exit;
-    }
-    ESP_LOGI(TAG, " ok");
-    //print_public_key(pubkey); */
 
 exit:
     fflush(stdout);
