@@ -26,6 +26,7 @@ void app_main(void)
   dhs_wifi_init();  // esp_netif_init() and esp_event_loop_create_default() are called inside here
   dhs_mqtt_init();
 
+  // initialize and start user application
   ua_main_init(); 
 
   // Memory Optimization Tests

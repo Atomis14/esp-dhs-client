@@ -7,6 +7,17 @@
 #include "ua_main.h"
 #include "dhs_atecc.h"
 
+#ifdef CONFIG_UA_LED_ACTIVE
+  #define LED_ACTIVATED true
+#else
+  #define LED_ACTIVATED false
+#endif
+
+#ifdef CONFIG_UA_LOGS_ACTIVE
+  #define LOGS_ACTIVATED true
+#else
+  #define LOGS_ACTIVATED false
+#endif
 
 static const char *TAG = "ua_main";
 
@@ -27,9 +38,13 @@ void ua_main_init()
         uint8_t red = random_number[i];
         uint8_t green = random_number[i+1];
         uint8_t blue = random_number[i+2];
-        ESP_LOGI(TAG, "Current color (r,g,b): %d,%d,%d", red, green, blue);
-        ua_set_led_color(red, green, blue);
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
+        if(LOGS_ACTIVATED) {
+          ESP_LOGI(TAG, "Current color (r,g,b): %d,%d,%d", red, green, blue);
+        }
+        if(LED_ACTIVATED) {
+          ua_set_led_color(red, green, blue);
+        }
+        vTaskDelay(CONFIG_UA_DURATION / portTICK_PERIOD_MS);
       }
     }
   }

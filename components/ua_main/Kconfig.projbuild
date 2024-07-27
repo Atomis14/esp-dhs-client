@@ -1,0 +1,21 @@
+menu "UA Main Configuration"
+
+    config UA_DURATION
+        int "Color Duration (milliseconds)"
+        default 1000
+        help
+            How many milliseconds the LED will blink in a color before changing to the next.
+
+    config UA_LED_ACTIVE
+        bool "Activate LED"
+        default y
+        help
+            If not activated, the LED will not blink but the logic will be executed as normal.
+
+    config UA_LOGS_ACTIVE
+        bool "Activate Current Color Logs"
+        default y
+        help
+            If activated, a message will be printed what the current RGB value of the LED is.
+
+endmenu
