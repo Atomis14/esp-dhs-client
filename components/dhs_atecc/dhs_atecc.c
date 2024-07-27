@@ -100,7 +100,7 @@ static void print_public_key(uint8_t *pubkey)
     ESP_LOGI(TAG, "\r\n-----BEGIN PUBLIC KEY-----\r\n%s\r\n-----END PUBLIC KEY-----", buf);
 } */
 
-int static atca_ecdsa_test()
+static int atca_ecdsa_test()
 {
     mbedtls_pk_context pkey;
     int ret;

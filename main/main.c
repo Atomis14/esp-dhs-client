@@ -15,7 +15,9 @@
 
 void app_main(void)
 {
-  dhs_atecc_init();
+  if(ATECC_CONNECTED) {
+    dhs_atecc_init();
+  }
 
   char* config = dhs_config_get();
   printf("%s\n", config);

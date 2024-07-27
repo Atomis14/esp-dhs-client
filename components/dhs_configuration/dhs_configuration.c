@@ -131,7 +131,10 @@ char* dhs_config_get()
 
   ////////////////////////// Secure Element
 
-  bool atecc_connected = dhs_atecc_get_status();
+  bool atecc_connected = false;
+  if(ATECC_CONNECTED) { // config says ATECC should be connected
+    atecc_connected = dhs_atecc_get_status(); // check if ATECC is really connected
+  }
   cJSON_AddBoolToObject(configuration, "atecc_connected", atecc_connected);
   
 

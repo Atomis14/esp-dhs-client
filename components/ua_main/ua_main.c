@@ -26,6 +26,11 @@ void ua_main_init()
 {
   ESP_LOGI(TAG, "Started user application");
 
+  if(!ATECC_CONNECTED) {
+    ESP_LOGI(TAG, "User application cannot run without connected ATECC608.");
+    return;
+  }
+
   ua_blink_init();
 
   uint8_t random_number[32];

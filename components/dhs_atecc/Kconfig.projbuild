@@ -1,0 +1,10 @@
+menu "DHS ATECC608 Configuration"
+
+    config ATECC_CONNECTED
+        bool "ATECC608 Secure Element Connected"
+        default y
+        help
+            Check only if an ATECC608 secure element is connected.
+            If deactivated, initializing and checking the ATECC status is skipped because it slows down the application significantly.
+
+endmenu
