@@ -93,12 +93,6 @@ char* dhs_config_get()
   bool secure_boot_aggressive_revoke_enabled = esp_efuse_read_field_bit(ESP_EFUSE_SECURE_BOOT_AGGRESSIVE_REVOKE);
   cJSON_AddBoolToObject(configuration, "aggressive_key_revoke_enabled", secure_boot_aggressive_revoke_enabled);
 
-  // https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/security/security.html#uart-download-mode
-  // 0: can flash new firmware to the device
-  // 1: cannot flash a new firmware to the device
-  bool download_mode_disabled = esp_efuse_read_field_bit(ESP_EFUSE_DIS_DOWNLOAD_MODE);
-  cJSON_AddBoolToObject(configuration, "download_mode_disabled", download_mode_disabled);
-
   ////////////////////////// Signed App Images
 
   ////////////////////////// Memory Protection
@@ -115,6 +109,12 @@ char* dhs_config_get()
   cJSON_AddBoolToObject(configuration, "memory_protection_locked", memory_protection_locked);
 
   ////////////////////////// Miscellaneous
+
+  // https://docs.espressif.com/projects/esp-idf/en/stable/esp32s3/security/security.html#uart-download-mode
+  // 0: can flash new firmware to the device
+  // 1: cannot flash a new firmware to the device
+  bool download_mode_disabled = esp_efuse_read_field_bit(ESP_EFUSE_DIS_DOWNLOAD_MODE);
+  cJSON_AddBoolToObject(configuration, "download_mode_disabled", download_mode_disabled);
 
   // https://docs.espressif.com/projects/esp-idf/en/v5.2.2/esp32s3/security/security.html#uart-download-mode
   // 1: prevents any arbitrary code from being executed through UART download and limits available commands to update SPI config

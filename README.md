@@ -7,13 +7,13 @@
 Project built using VS Code and ESP-IDF extensions v1.7.1 (did not work with newer versions of the extension)
 
 1.  Make sure the necessary SDK configuration are set in menuconfig:  
-- **DHS ATECC608 Configuration**  
+  - **DHS ATECC608 Configuration**  
 Secure Element Connected: only check if the ATECC608 should be connected   
 (if the secure element is not connected but this option is checked, the client will be significantly slowed down)  
-- **DHS MQTT Configuration**  
+  - **DHS MQTT Configuration**  
 Broker URL: `mqtts://<username>:<password>@<fqdn>`  
 (fqdn: fully qualified domain name of the MQTT server)  
-- **DHS WiFi Configuration**  
+  - **DHS WiFi Configuration**  
 WiFi SSID: `<SSID>`  
 WiFi Password: `<Password>`
 
