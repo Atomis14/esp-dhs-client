@@ -24,7 +24,7 @@
 #include <sys/param.h>
 
 #include "dhs_configuration.h"
-#include "dhs_mqtt_connection.h"
+#include "dhs_mqtt.h"
 
 static const char *TAG = "dhs_mqtts";
 

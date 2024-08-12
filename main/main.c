@@ -6,7 +6,7 @@
 
 #include "dhs_configuration.h"
 #include "dhs_wifi.h"
-#include "dhs_mqtt_connection.h"
+#include "dhs_mqtt.h"
 #include "dhs_atecc.h"
 
 #include "ua_main.h"
