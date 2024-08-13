@@ -13,6 +13,8 @@
 
 // #include "esp_log.h"
 
+#include "esp32_perfmon.h"
+
 void app_main(void)
 {
   if(ATECC_CONNECTED) {
@@ -28,8 +30,10 @@ void app_main(void)
   dhs_wifi_init();  // esp_netif_init() and esp_event_loop_create_default() are called inside here
   dhs_mqtt_init();
 
+  perfmon_start();
+
   // initialize and start user application
-  ua_main_init(); 
+  //ua_main_init(); 
 
   // Memory Optimization Tests
   /* int before = 0;
