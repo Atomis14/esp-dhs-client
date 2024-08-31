@@ -1,6 +1,8 @@
 # ESP-DHS Client
 
-**ESP**32-S3 **D**evice **H**ardening **S**ystem
+**ESP**32-S3 **D**evice **H**ardening **S**ystem Client
+
+Firmware running on the ESP32-S3 that extracts the security configuration upon request and sends it to the server.
 
 ## Setup
 
